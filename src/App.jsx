@@ -1,35 +1,102 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Step1 from './Steps/Phone';
+import Step2 from './Steps/DriversLiscence';
+import Step3 from './Steps/PO';
+import Confirmation from './Confirmation';
+import './App.css'; // Import the CSS file
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [step, setStep] = useState(1);
+
+  // Form data states
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [driversLicense, setDriversLicense] = useState('');
+  const [poNumber, setPONumber] = useState('');
+
+  // Response data states
+  const [imageData, setImageData] = useState('');
+  const [dockNumber, setDockNumber] = useState('');
+  const [googleMapsLink, setGoogleMapsLink] = useState('');
+
+  const nextStep = () => setStep((prevStep) => prevStep + 1);
+
+  const handleSubmit = () => {
+    const payload = {
+      phoneNumber,
+      driversLicense,
+      poNumber,
+    };
+
+    fetch('http://192.168.162.98:5000/submit-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setImageData(data.image);
+        setDockNumber(data.dockNumber);
+        setGoogleMapsLink(data.googleMapsLink);
+        setStep(5); // Move to the final display step
+      })
+      .catch((error) => {
+        console.error('Error submitting data:', error);
+        alert('Failed to submit data');
+      });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          slfjsdlkfjsdlkfjsklfsdlk jsdlkf jsdEdit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="container">
+      {step === 1 && (
+        <Step1
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          nextStep={nextStep}
+        />
+      )}
+      {step === 2 && (
+        <Step2
+          driversLicense={driversLicense}
+          setDriversLicense={setDriversLicense}
+          nextStep={nextStep}
+        />
+      )}
+      {step === 3 && (
+        <Step3
+          poNumber={poNumber}
+          setPONumber={setPONumber}
+          nextStep={nextStep}
+        />
+      )}
+      {step === 4 && (
+        <Confirmation
+          phoneNumber={phoneNumber}
+          driversLicense={driversLicense}
+          poNumber={poNumber}
+          handleSubmit={handleSubmit}
+        />
+      )}
+      {step === 5 && (
+        <div>
+          <h2 className="heading">Submission Successful</h2>
+          <h2 className="heading">Dock Number: {dockNumber}</h2>
+          <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
+            View on Google Maps
+          </a>
+          <br />
+          <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
+            <img
+              src={`data:image/jpeg;base64,${imageData}`}
+              alt="Result"
+              style={{ cursor: 'pointer', maxWidth: '100%', height: 'auto', marginTop: '10px' }}
+            />
+          </a>
+        </div>
+      )}
+
+
+    </div>
+  );
 }
 
-export default App
+export default App;

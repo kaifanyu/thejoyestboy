@@ -1,42 +1,103 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css */
+
+/* Base styles for container */
+.container {
+  /* Instead of a fixed width, use a relative width that adjusts on mobile */
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.logo {
-  height: 7em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* You can also apply a media query to further adjust spacing or font sizes for very narrow screens */
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    margin: 10px auto;
+    padding: 15px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .heading {
+    font-size: 1.2rem;
+  }
+
+  .button-group {
+    flex-wrap: wrap; /* If you want buttons to stack on very small screens */
+    gap: 10px;
   }
 }
 
-.card {
-  padding: 2em;
+/* Heading styling */
+.heading {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+/* Labels and inputs */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+/* Button group styling */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: nowrap; /* or wrap if you want them to break line on smaller screens */
+}
+
+/* Basic button styling */
+.button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Specific classes for Help/Skip buttons to differentiate colors */
+.help-button {
+  background-color: #28a745;
+}
+
+.help-button:hover {
+  background-color: #218838;
+}
+
+.skip-button {
+  background-color: #dc3545;
+}
+
+.skip-button:hover {
+  background-color: #c82333;
+}
+
+/* Confirmation summary styling */
+.confirmation-summary {
+  margin-bottom: 20px;
+}
+
+.confirmation-summary p {
+  margin: 5px 0;
 }
