@@ -27,7 +27,7 @@ function App() {
       poNumber,
     };
 
-    fetch('http://api.kaifany.com/submit-data'aaaa, {
+    fetch('https://api.kaifany.com/submit-data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
