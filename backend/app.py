@@ -9,7 +9,7 @@ app = Flask(__name__)
 # If you only want to allow from a specific origin, keep as-is.
 # If you want to allow multiple origins or local dev, you can do:
 # CORS(app, resources={r"/*": {"origins": ["http://192.168.162.98:8001", "http://localhost:3000"]}})
-CORS(app, resources={r"/*": {"origins": ["http://192.168.162.98:8001"]}})
+CORS(app)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'user_data.json')
 
@@ -27,6 +27,9 @@ def initialize_data_file():
         except (json.JSONDecodeError, ValueError):
             with open(DATA_FILE, 'w') as f:
                 f.write('[]')
+
+# def read_dl():
+
 
 
 @app.route('/submit-data', methods=['POST'])
