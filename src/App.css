@@ -3,37 +3,26 @@
 /* Base styles for container */
 .container {
   /* Instead of a fixed width, use a relative width that adjusts on mobile */
-  width: 90%;
-  max-width: 600px;
-  margin: 20px auto;
+  width: auto;
   font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
-  padding: 20px;
+  /* background-color: pink; */
   border-radius: 8px;
+  margin: 0px;
+  padding: 0px;
 }
 
-/* You can also apply a media query to further adjust spacing or font sizes for very narrow screens */
-@media (max-width: 600px) {
-  .container {
-    width: 95%;
-    margin: 10px auto;
-    padding: 15px;
-  }
-
-  .heading {
-    font-size: 1.2rem;
-  }
-
-  .button-group {
-    flex-wrap: wrap; /* If you want buttons to stack on very small screens */
-    gap: 10px;
-  }
+.heading {
+  font-size: 1.2rem;
 }
 
+.button-group {
+  flex-wrap: wrap; /* If you want buttons to stack on very small screens */
+  gap: 10px;
+}
 /* Heading styling */
 .heading {
   margin-bottom: 10px;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 /* Labels and inputs */
@@ -45,7 +34,9 @@ label {
 
 input[type="text"],
 input[type="number"] {
-  width: 100%;
+  width: 80%;
+  height: 90px;
+  font-size: 2rem;
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -53,37 +44,62 @@ input[type="number"] {
   background-color: white;
   border: 1px solid #ccc;
 }
-
 /* Button group styling */
 .button-group {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-  flex-wrap: nowrap; /* or wrap if you want them to break line on smaller screens */
+  flex-wrap: nowrap; /* or wrap if needed */
 }
 
 /* Basic button styling */
 .button {
+  display: flex;
+  align-items: center; /* Vertically center text and icon */
+  justify-content: center; /* Horizontally align text and icon */
+  gap: 8px; /* Space between text and SVG */
   padding: 10px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   font-weight: bold;
+  font-size: 24px; /* Adjust as needed */
+  line-height: 1; /* Prevent text misalignment */
+  width: auto; /* Allow the button to adjust size automatically */
+  height: auto; /* Allow height to fit content */
 }
 
-.button:hover {
-  background-color: #0056b3;
+/* Styling for individual buttons if needed */
+.skip-button {
+  background-color: #6c757d;
 }
 
-/* Specific classes for Help/Skip buttons to differentiate colors */
 .help-button {
   background-color: #28a745;
 }
 
-.help-button:hover {
+/* SVG Styling */
+.button svg {
+  display: inline-block;
+  vertical-align: middle; /* Ensures proper alignment */
+  width: 24px;
+  height: 24px;
+  fill: white; /* Matches text color */
+}
+
+.button:hover {
   background-color: #218838;
+}
+
+/* Specific classes for Help/Skip buttons to differentiate colors */
+.help-button {
+  background-color: #ffd819;
+}
+
+.help-button:hover {
+  background-color: #cca000;
 }
 
 .skip-button {
@@ -101,4 +117,5 @@ input[type="number"] {
 
 .confirmation-summary p {
   margin: 5px 0;
+  font-size: 22px;
 }
