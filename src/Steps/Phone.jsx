@@ -8,7 +8,7 @@ function Phone({ phoneNumber, setPhoneNumber, handleSubmit }) {
 
   const handleSkip = () => {
     setPhoneNumber('');
-    nextStep();
+    handleSubmit('');
   };
 
   const handleHelp = () => {
