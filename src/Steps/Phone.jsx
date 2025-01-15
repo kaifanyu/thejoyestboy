@@ -25,7 +25,7 @@ function Step1({ phoneNumber, setPhoneNumber, nextStep }) {
       <h2 className="heading">输入电话号码</h2>
       <h2 className="heading">फोन नंबर दर्ज करें</h2>
       <h2 className="heading">Ingrese el número de teléfono</h2>
-      <h2 className="heading">Enter Phone Number</h2>
+      <h2 className="heading">↓ Enter Phone Number: ↓</h2>
       
       <input
         id="phoneNumber"
@@ -34,12 +34,12 @@ function Step1({ phoneNumber, setPhoneNumber, nextStep }) {
         pattern="[0-9]*" 
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
-        placeholder="Phone Number"
+        placeholder="(626)..."
       />
 
       <div className="button-group">
       <button className="button" onClick={handleNext}>
-        Next
+        Next / Siguiente
         <svg width="24px" height="24px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
               <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-308.000000, -1087.000000)" fill="#000000">
@@ -53,7 +53,7 @@ function Step1({ phoneNumber, setPhoneNumber, nextStep }) {
       </button>
 
         <button className="button skip-button" onClick={handleSkip}>
-          Skip
+          Skip / Saltar
           <svg width="24px" height="24px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none"><path fill="#000000" fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 0110.535-5.096l-9.131 9.131A6.472 6.472 0 011.5 8zm2.465 5.096a6.5 6.5 0 009.131-9.131l-9.131 9.131z" clip-rule="evenodd"/></svg>
         </button>
         <button className="button help-button" onClick={handleHelp}>

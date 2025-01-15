@@ -49,12 +49,12 @@ input[type="number"] {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-  flex-wrap: nowrap; /* or wrap if needed */
+  flex-wrap:wrap; /* or wrap if needed */
 }
 
 /* Basic button styling */
 .button {
-  display: flex;
+  display: inline;
   align-items: center; /* Vertically center text and icon */
   justify-content: center; /* Horizontally align text and icon */
   gap: 8px; /* Space between text and SVG */
@@ -86,6 +86,7 @@ input[type="number"] {
   vertical-align: middle; /* Ensures proper alignment */
   width: 24px;
   height: 24px;
+  padding-left: 20px;
   fill: white; /* Matches text color */
 }
 
