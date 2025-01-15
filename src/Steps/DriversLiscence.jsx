@@ -29,7 +29,7 @@ function Step2({ driversLicense, setDriversLicense, nextStep }) {
         type="text"
         value={driversLicense}
         onChange={(e) => setDriversLicense(e.target.value)}
-        placeholder="Driver's License Number"
+        placeholder="Driver's License"
       />
 
 

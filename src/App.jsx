@@ -47,7 +47,7 @@ function App() {
         setImageData(data.image || '');
         setDockNumber(data.dockNumber || '');
         setGoogleMapsLink(data.googleMapsLink || '');
-        setStep(7); // Move to the final display step
+        setStep(6); // Move to the final display step
       })
       .catch((error) => {
         console.error('Error submitting data:', error);
@@ -89,10 +89,10 @@ function App() {
         <Step5
           volume={volume}
           setVolume={setVolume}
-          nextStep={nextStep}
+          nextStep={handleSubmit}
         />
       )}
-      {step === 6 && (
+      {/* {step === 6 && (
         <Confirmation
           phoneNumber={phoneNumber}
           driversLicense={driversLicense}
@@ -101,8 +101,8 @@ function App() {
           account={accountName}
           handleSubmit={handleSubmit}
         />
-      )}
-      {step === 7 && (
+      )} */}
+      {step === 6 && (
         <div>
           <h2 className="heading">Submission Successful</h2>
           {dockNumber && <h2 className="heading">Dock Number: {dockNumber}</h2>}
