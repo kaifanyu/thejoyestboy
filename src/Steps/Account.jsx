@@ -28,7 +28,7 @@ function Step4({ accountName, setAccountName, nextStep }) {
         type="text"
         value={accountName}
         onChange={(e) => setAccountName(e.target.value)}
-        placeholder="Account Name"
+        placeholder="Amazon..."
       />
 
       <div className="button-group">

@@ -17,23 +17,17 @@ function Step3({ poNumber, setPONumber, nextStep }) {
 
   return (
     <div>
-      <h2 className="heading">输入采购订单号 (PO) </h2>
-      <h2 className="heading">पीओ नंबर दर्ज करें</h2>
-      <h2 className="heading">Ingrese el número de orden de compra (PO) </h2>
-      <h2 className="heading">↓ Enter PO Number ↓</h2>  
+      <h2 className="heading">输入提货号码</h2>
+      <h2 className="heading">पिक-अप नंबर दर्ज करें</h2>
+      <h2 className="heading">Ingrese el número de recogida</h2>
+      <h2 className="heading">↓ Enter Pick Up Number ↓</h2>  
 
-      {/* 
-      <h2 className="heading">第三步：输入采购订单号 (PO) </h2>
-      <h2 className="heading">चरण 3: पीओ नंबर दर्ज करें</h2>
-      <h2 className="heading">Paso 3: Ingrese el número de orden de compra (PO) </h2>
-      <h2 className="heading">Step 3: Enter PO Number</h2> */}
-      {/* <label htmlFor="poNumber">PO Number</label> */}
       <input
         id="poNumber"
         type="text"
         value={poNumber}
         onChange={(e) => setPONumber(e.target.value)}
-        placeholder="PO Number"
+        placeholder="Pick up number: 1234..."
       />
 
 <div className="button-group">

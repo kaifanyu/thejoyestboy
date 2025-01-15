@@ -17,10 +17,10 @@ function Step5({ volume, setVolume, nextStep }) {
 
   return (
     <div>
-      <h2 className="heading">满载或空载?</h2>
-      <h2 className="heading">पूर्ण या खाली लोड?</h2>
-      <h2 className="heading">Carga completa o vacía?</h2>
-      <h2 className="heading">Full or Empty Load?</h2>
+      <h2 className="heading">您的卡车是满载还是空载？</h2>
+      <h2 className="heading">क्या आपका ट्रक भरा हुआ है या खाली है?</h2>
+      <h2 className="heading">¿Su camión está cargado o vacío?</h2>
+      <h2 className="heading">Is your truck Full or Empty Load?</h2>
 
       <div className="button-group">
         <button className="button skip-button" onClick={() => handleSelect(1)}>
