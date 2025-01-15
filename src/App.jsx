@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import Step1 from './Steps/Phone';
-import Step2 from './Steps/DriversLiscence';
-import Step3 from './Steps/PO';
-import Step4 from './Steps/Account';
-import Step5 from './Steps/Container';
-import Confirmation from './Confirmation';
+import Phone from './Steps/Phone';
+import DriversLicence from './Steps/DriversLicence';
+import PickUpNumber from './Steps/PO';
+import Container from './Steps/Container';
 import './App.css'; // Import the CSS file
 
 function App() {
   const [step, setStep] = useState(1);
+
   // Form data states
   const [phoneNumber, setPhoneNumber] = useState('');
   const [driversLicense, setDriversLicense] = useState('');
   const [poNumber, setPONumber] = useState('');
   const [volume, setVolume] = useState('');
   const [accountName, setAccountName] = useState('');
+  
   // Response data states
   const [imageData, setImageData] = useState('');
   const [dockNumber, setDockNumber] = useState('');
@@ -22,13 +22,16 @@ function App() {
 
   const nextStep = () => setStep((prevStep) => prevStep + 1);
 
-  const handleSubmit = () => {
+  const handleSubmit = (val) => {
+    console.log("dl: ", driversLicense);
+    console.log("phone: ", phoneNumber)
+    console.log("vol: ", volume)
+    console.log("po: ", val)
     const payload = {
-      phoneNumber,
       driversLicense,
-      poNumber,
-      accountName,
+      phoneNumber,
       volume,
+      poNumber: val,
     };
 
     fetch('https://api.kaifany.com/submit-data', {
@@ -43,11 +46,11 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log('API response:', data); // Debug response
+        console.log('API response:', data);
         setImageData(data.image || '');
         setDockNumber(data.dockNumber || '');
         setGoogleMapsLink(data.googleMapsLink || '');
-        setStep(6); // Move to the final display step
+        setStep(5); // Move to the final display step
       })
       .catch((error) => {
         console.error('Error submitting data:', error);
@@ -58,75 +61,36 @@ function App() {
   return (
     <div className="container">
       {step === 1 && (
-        <Step1
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-          nextStep={nextStep}
-        />
-      )}
-      {step === 2 && (
-        <Step2
+        <DriversLicence
           driversLicense={driversLicense}
           setDriversLicense={setDriversLicense}
           nextStep={nextStep}
         />
       )}
+      {step === 2 && (
+        <Container
+          volume={volume}
+          setVolume={setVolume}
+          nextStep={nextStep}
+        />
+      )}
       {step === 3 && (
-        <Step3
+        <PickUpNumber
           poNumber={poNumber}
           setPONumber={setPONumber}
           nextStep={nextStep}
         />
       )}
       {step === 4 && (
-        <Step4
-          accountName={accountName}
-          setAccountName={setAccountName}
-          nextStep={nextStep}
+        <Phone
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          handleSubmit={handleSubmit}
         />
       )}
       {step === 5 && (
-        <Step5
-          volume={volume}
-          setVolume={setVolume}
-          nextStep={handleSubmit}
-        />
-      )}
-      {/* {step === 6 && (
-        <Confirmation
-          phoneNumber={phoneNumber}
-          driversLicense={driversLicense}
-          poNumber={poNumber}
-          volume={volume}
-          account={accountName}
-          handleSubmit={handleSubmit}
-        />
-      )} */}
-      {step === 6 && (
         <div>
           <h2 className="heading">Submission Successful</h2>
-          {dockNumber && <h2 className="heading">Dock Number: {dockNumber}</h2>}
-          {googleMapsLink && (
-            <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
-              View on Google Maps
-            </a>
-          )}
-          {imageData ? (
-            <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
-              <img
-                src={`data:image/jpeg;base64,${imageData}`}
-                alt="Result"
-                style={{
-                  cursor: 'pointer',
-                  maxWidth: '100%',
-                  height: 'auto',
-                  marginTop: '10px',
-                }}
-              />
-            </a>
-          ) : (
-            <p>No image available</p>
-          )}
         </div>
       )}
     </div>

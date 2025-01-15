@@ -46,7 +46,7 @@ def submit_data():
     drivers_license = data.get('driversLicense')
     po_number = data.get('poNumber')
     volume = data.get('volume')
-    accountName = data.get('accountName')
+    # accountName = data.get('accountName')
     # Example logic: generate some results
     dock_number = "Dock-18"
     google_maps_link = "https://maps.app.goo.gl/zxV7mtxpV5D6DuEr8"
@@ -63,7 +63,7 @@ def submit_data():
         'driversLicense': drivers_license,
         'poNumber': po_number,
         'volume': volume,
-        'account_name': accountName,
+        # 'account_name': accountName,
     })
 
     with open(DATA_FILE, 'w') as f:
