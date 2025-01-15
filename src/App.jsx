@@ -8,13 +8,15 @@ import './App.css'; // Import the CSS file
 function App() {
   const [step, setStep] = useState(1);
 
+  const totalSteps = 5;
+
   // Form data states
   const [phoneNumber, setPhoneNumber] = useState('');
   const [driversLicense, setDriversLicense] = useState('');
   const [poNumber, setPONumber] = useState('');
   const [volume, setVolume] = useState('');
   const [accountName, setAccountName] = useState('');
-  
+
   // Response data states
   const [imageData, setImageData] = useState('');
   const [dockNumber, setDockNumber] = useState('');
@@ -24,9 +26,9 @@ function App() {
 
   const handleSubmit = (val) => {
     console.log("dl: ", driversLicense);
-    console.log("phone: ", phoneNumber)
-    console.log("vol: ", volume)
-    console.log("po: ", val)
+    console.log("phone: ", phoneNumber);
+    console.log("vol: ", volume);
+    console.log("po: ", val);
     const payload = {
       driversLicense,
       phoneNumber,
@@ -58,8 +60,22 @@ function App() {
       });
   };
 
+  const renderProgressBar = () => {
+    const progressPercentage = (step / totalSteps) * 100;
+
+    return (
+      <div className="progress-bar-container">
+        <div
+          className="progress-bar"
+          style={{ width: `${progressPercentage}%` }}
+        ></div>
+      </div>
+    );
+  };
+
   return (
     <div className="container">
+      {renderProgressBar()}
       {step === 1 && (
         <DriversLicence
           driversLicense={driversLicense}
