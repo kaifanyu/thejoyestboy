@@ -33,7 +33,7 @@ function App() {
       driversLicense,
       phoneNumber,
       volume,
-      poNumber: val,
+      poNumber,
     };
 
     fetch('https://api.kaifany.com/submit-data', {
