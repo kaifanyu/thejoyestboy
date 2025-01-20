@@ -1,106 +1,79 @@
-w/* App.css */
-
-/* Base styles for container */
+/* General container styling */
 .container {
-  /* Instead of a fixed width, use a relative width that adjusts on mobile */
-  width: auto;
+  max-width: 600px;
+  margin: 0 auto; /* Center the container */
+  padding: 20px;
   font-family: Arial, sans-serif;
-  /* background-color: pink; */
   border-radius: 8px;
-  margin: 0px;
-  padding: 0px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
 }
 
-.heading {
-  font-size: 1.2rem;
-}
-
-.button-group {
-  flex-wrap: wrap; /* If you want buttons to stack on very small screens */
-  gap: 10px;
-}
 /* Heading styling */
 .heading {
-  margin-bottom: 10px;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* Labels and inputs */
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 80%;
-  height: 90px;
-  font-size: 2rem;
-  padding: 8px;
-  margin-bottom: 10px;
+/* Input field styling */
+input[type="text"] {
+  width: calc(100% - 16px);
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 4px;
   color: black;
   background-color: white;
-  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
+
+input[type="number"] {
+  width: calc(100% - 16px);
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* Image styling */
+.example-image {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 /* Button group styling */
 .button-group {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
-  margin-top: 10px;
-  flex-wrap:wrap; /* or wrap if needed */
 }
 
-/* Basic button styling */
+/* Button styling */
 .button {
-  display: inline;
-  align-items: center; /* Vertically center text and icon */
-  justify-content: center; /* Horizontally align text and icon */
-  gap: 8px; /* Space between text and SVG */
-  padding: 10px 16px;
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #28a745;
-  color: white;
-  font-weight: bold;
-  font-size: 24px; /* Adjust as needed */
-  line-height: 1; /* Prevent text misalignment */
-  width: auto; /* Allow the button to adjust size automatically */
-  height: auto; /* Allow height to fit content */
+  color: #fff;
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
-/* Styling for individual buttons if needed */
-.skip-button {
-  background-color: #6c757d;
-}
-
-.help-button {
-  background-color: #28a745;
-}
-
-/* SVG Styling */
-.button svg {
-  display: inline-block;
-  vertical-align: middle; /* Ensures proper alignment */
-  width: 24px;
-  height: 24px;
-  padding-left: 20px;
-  fill: white; /* Matches text color */
-}
-
-.button:hover {
-  background-color: #218838;
-}
-
-/* Specific classes for Help/Skip buttons to differentiate colors */
-.help-button {
-  background-color: #ffd819;
-}
-
-.help-button:hover {
-  background-color: #cca000;
+.next-button{
+  background-color: green;
 }
 
 .skip-button {
@@ -111,27 +84,22 @@ input[type="number"] {
   background-color: #c82333;
 }
 
-/* Confirmation summary styling */
-.confirmation-summary {
-  margin-bottom: 20px;
+.button svg {
+  margin-left: 5px;
 }
 
-.confirmation-summary p {
-  margin: 5px 0;
-  font-size: 22px;
-}
-
+/* Progress bar styling */
 .progress-bar-container {
   width: 100%;
-  height: 10px;
+  height: 8px;
   background-color: #e0e0e0;
-  border-radius: 5px;
-  margin: 20px 0;
+  border-radius: 4px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .progress-bar {
   height: 100%;
-  background-color: #4caf50;
+  background-color: #28a745;
   transition: width 0.3s ease-in-out;
 }
