@@ -46,6 +46,8 @@ def submit_data():
     drivers_license = data.get('driversLicense')
     po_number = data.get('poNumber')
     volume = data.get('volume')
+    trailerNumber = data.get('trailerNumber')
+    
     # accountName = data.get('accountName')
     # Example logic: generate some results
     dock_number = "Dock-18"
@@ -63,6 +65,7 @@ def submit_data():
         'driversLicense': drivers_license,
         'poNumber': po_number,
         'volume': volume,
+        'trailerNumber': trailerNumber
         # 'account_name': accountName,
     })
 

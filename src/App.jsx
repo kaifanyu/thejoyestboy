@@ -3,12 +3,13 @@ import Phone from './Steps/Phone';
 import DriversLicence from './Steps/DriversLicence';
 import PickUpNumber from './Steps/PO';
 import Container from './Steps/Container';
+import Trailer from './Steps/Trailer';
 import './App.css'; // Import the CSS file
 
 function App() {
   const [step, setStep] = useState(1);
 
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   // Form data states
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,6 +17,7 @@ function App() {
   const [poNumber, setPONumber] = useState('');
   const [volume, setVolume] = useState('');
   const [accountName, setAccountName] = useState('');
+  const [trailerNumber, setTrailerNumber] = useState('');
 
   // Response data states
   const [imageData, setImageData] = useState('');
@@ -34,6 +36,7 @@ function App() {
       phoneNumber,
       volume,
       poNumber,
+      trailerNumber
     };
 
     fetch('https://api.kaifany.com/submit-data', {
@@ -52,7 +55,7 @@ function App() {
         setImageData(data.image || '');
         setDockNumber(data.dockNumber || '');
         setGoogleMapsLink(data.googleMapsLink || '');
-        setStep(5); // Move to the final display step
+        setStep(6); // Move to the final display step
       })
       .catch((error) => {
         console.error('Error submitting data:', error);
@@ -91,20 +94,27 @@ function App() {
         />
       )}
       {step === 3 && (
+        <Trailer
+          trailerNumber={trailerNumber}
+          setTrailerNumber={setTrailerNumber}
+          nextStep={nextStep}
+        />
+      )}
+      {step === 4 && (
         <PickUpNumber
           poNumber={poNumber}
           setPONumber={setPONumber}
           nextStep={nextStep}
         />
       )}
-      {step === 4 && (
+      {step === 5 && (
         <Phone
           phoneNumber={phoneNumber}
           setPhoneNumber={setPhoneNumber}
           handleSubmit={handleSubmit}
         />
       )}
-      {step === 5 && (
+      {step === 6 && (
         <div>
           <h2 className="heading">Submission Successful</h2>
         </div>
