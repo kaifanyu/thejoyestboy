@@ -1,5 +1,5 @@
 import React from 'react';
-import driversImage from './drivers.jpg';
+import driversImage from '../assets/drivers.jpg';
 
 function DriversLicense({ driversLicense, setDriversLicense, nextStep }) {
   const handleNext = () => nextStep();

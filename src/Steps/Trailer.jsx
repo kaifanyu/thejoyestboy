@@ -1,5 +1,5 @@
 import React from 'react';
-import trailerImage from './trailer.jpg';
+import trailerImage from '../assets/trailer.jpg';
 
 function Trailer({ trailerNumber, setTrailerNumber, nextStep }) {
   const handleNext = () => {

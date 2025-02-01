@@ -25,3 +25,4 @@ dist-ssr
 
 backend/__pycache__/*
 backend/user_data.json
+backend/cred.json
