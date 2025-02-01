@@ -1,0 +1,141 @@
+/* Global Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+    padding: 20px;
+  }
+  
+  /* Verification Box */
+  .verification-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  /* Search Type Button Group */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .button-group button {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #e5e7eb;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .button-group button:hover {
+    background-color: #d1d5db;
+  }
+  
+  .button-group .selected {
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Search Input */
+  .search-input {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  /* Search Button */
+  .search-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .search-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .search-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  /* Results */
+  .results {
+    margin-top: 20px;
+  }
+  
+  .result-card {
+    background-color: #f9fafb;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    border-left: 5px solid #3b82f6;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  /* Check-In Button */
+  .check-in-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background-color: #10b981;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .check-in-button:hover {
+    background-color: #059669;
+  }
+  
+  .check-in-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  /* Success Message */
+  .success-message {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: green;
+    font-size: 24px;
+  }
+  

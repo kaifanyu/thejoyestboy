@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Verify.css"; // Import CSS file
 
 const Verify = () => {
   const [searchType, setSearchType] = useState("phoneNumber");
@@ -65,17 +66,17 @@ const Verify = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="container">
       {checkedIn ? (
-        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg text-center animate-fadeIn">
-          <h2 className="text-3xl font-bold text-green-600 animate-pulse">✅ Check-In Successful!</h2>
+        <div className="success-message">
+          <h2>✅ Check-In Successful!</h2>
         </div>
       ) : (
-        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl">
-          <h2 className="text-3xl font-bold text-center text-gray-800">User Verification</h2>
+        <div className="verification-box">
+          <h2>User Verification</h2>
 
           {/* Search Type Selection */}
-          <div className="flex justify-center gap-3 mt-6">
+          <div className="button-group">
             {[
               { type: "phoneNumber", label: "Phone" },
               { type: "driversLicense", label: "Driver's License" },
@@ -85,11 +86,7 @@ const Verify = () => {
               <button
                 key={type}
                 onClick={() => setSearchType(type)}
-                className={`px-4 py-2 text-sm font-semibold border rounded-lg transition ${
-                  searchType === type
-                    ? "bg-blue-500 text-white shadow-md"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                className={searchType === type ? "selected" : ""}
               >
                 {label}
               </button>
@@ -99,48 +96,36 @@ const Verify = () => {
           {/* Search Input */}
           <input
             type="text"
-            className="mt-5 p-3 w-full border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="search-input"
             placeholder={`Search by ${searchType.replace(/([A-Z])/g, " $1")}`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
           {/* Search Button */}
-          <button
-            onClick={handleSearch}
-            disabled={loading}
-            className={`mt-4 w-full px-5 py-3 text-white font-semibold rounded-lg transition ${
-              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-            }`}
-          >
+          <button onClick={handleSearch} disabled={loading} className="search-button">
             {loading ? "Searching..." : "Search"}
           </button>
 
           {/* Search Results */}
-          <div className="mt-5">
+          <div className="results">
             {filteredResults.length > 0 ? (
               filteredResults.map((user, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm mt-2 border-l-4 border-blue-500">
-                  <p className="text-gray-700"><strong>📞 Phone:</strong> {user.phoneNumber}</p>
-                  <p className="text-gray-700"><strong>🚗 Driver's License:</strong> {user.driversLicense}</p>
-                  <p className="text-gray-700"><strong>🚛 Trailer Number:</strong> {user.trailerNumber}</p>
-                  <p className="text-gray-700"><strong>📦 Pick Up Number:</strong> {user.poNumber || "N/A"}</p>
+                <div key={index} className="result-card">
+                  <p><strong>📞 Phone:</strong> {user.phoneNumber}</p>
+                  <p><strong>🚗 Driver's License:</strong> {user.driversLicense}</p>
+                  <p><strong>🚛 Trailer Number:</strong> {user.trailerNumber}</p>
+                  <p><strong>📦 Pick Up Number:</strong> {user.poNumber || "N/A"}</p>
                 </div>
               ))
             ) : error ? (
-              <div className="text-center text-red-500 mt-3">{error}</div>
+              <div className="error-message">{error}</div>
             ) : null}
           </div>
 
           {/* Check In Button */}
           {filteredResults.length > 0 && (
-            <button
-              onClick={handleCheckIn}
-              disabled={loading}
-              className={`mt-5 w-full px-5 py-3 text-white font-semibold rounded-lg transition ${
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
-              }`}
-            >
+            <button onClick={handleCheckIn} disabled={loading} className="check-in-button">
               {loading ? "Checking In..." : "Check In"}
             </button>
           )}
