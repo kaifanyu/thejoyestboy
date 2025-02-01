@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Verify = () => {
-  const [userData, setUserData] = useState([]);
   const [searchType, setSearchType] = useState("phoneNumber");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
@@ -9,59 +8,67 @@ const Verify = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    // Fetch user data from backend
-    fetch("/backend/user_data.json")
-      .then((response) => response.json())
-      .then((data) => setUserData(data))
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, []);
-
-  const handleSearch = (query) => {
-    const trimmedQuery = query.trim();
-    setSearchQuery(trimmedQuery);
-
-    if (trimmedQuery === "") {
+  const handleSearch = async () => {
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) {
       setFilteredResults([]);
+      setError("Please enter a search query.");
       return;
     }
 
-    // Exact match filtering
-    const results = userData.filter((user) => {
-      const userValue = user[searchType]?.toString().trim().toLowerCase();
-      return userValue === trimmedQuery.toLowerCase();
-    });
+    setLoading(true);
+    setError("");
 
-    setFilteredResults(results);
+    try {
+      const response = await fetch("http://localhost:5000/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [searchType]: trimmedQuery }),
+      });
+
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        setFilteredResults(data);
+      } else {
+        setFilteredResults([]);
+        setError("No results found.");
+      }
+    } catch (err) {
+      console.error("Search request failed:", err);
+      setError("Error searching, please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  const handleCheckIn = () => {
+
+  const handleCheckIn = async () => {
     if (filteredResults.length === 0) return;
-  
-    setCheckedIn(true); // Show animation immediately
+
+    setCheckedIn(true);
     setTimeout(() => {
       setCheckedIn(false);
       setSearchQuery("");
       setFilteredResults([]);
-    }, 2500); // Reset UI after 2.5s
-  
+    }, 2500);
+
     const selectedUser = filteredResults[0];
-  
-    // Fire & Forget: Send request without waiting for a response
-    fetch("http://localhost:5000/yms", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(selectedUser),
-    }).catch((err) => console.error("Check-in request failed:", err));
+
+    try {
+      await fetch("http://localhost:5000/yms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(selectedUser),
+      });
+    } catch (err) {
+      console.error("Check-in request failed:", err);
+    }
   };
-  
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       {checkedIn ? (
-        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg text-center animate-fadeIn animation-duration-500">
-          <h2 className="text-3xl font-bold text-green-600 animate-pulse animation-duration-500">
-            ✅ Check-In Successful!
-          </h2>
+        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg text-center animate-fadeIn">
+          <h2 className="text-3xl font-bold text-green-600 animate-pulse">✅ Check-In Successful!</h2>
         </div>
       ) : (
         <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl">
@@ -78,8 +85,7 @@ const Verify = () => {
               <button
                 key={type}
                 onClick={() => setSearchType(type)}
-                className={`px-4 py-2 text-sm font-semibold border rounded-lg transition 
-                ${
+                className={`px-4 py-2 text-sm font-semibold border rounded-lg transition ${
                   searchType === type
                     ? "bg-blue-500 text-white shadow-md"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -96,8 +102,19 @@ const Verify = () => {
             className="mt-5 p-3 w-full border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={`Search by ${searchType.replace(/([A-Z])/g, " $1")}`}
             value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
+
+          {/* Search Button */}
+          <button
+            onClick={handleSearch}
+            disabled={loading}
+            className={`mt-4 w-full px-5 py-3 text-white font-semibold rounded-lg transition ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
 
           {/* Search Results */}
           <div className="mt-5">
@@ -110,10 +127,8 @@ const Verify = () => {
                   <p className="text-gray-700"><strong>📦 Pick Up Number:</strong> {user.poNumber || "N/A"}</p>
                 </div>
               ))
-            ) : searchQuery ? (
-              <div className="text-center text-red-500 mt-3">
-                ❌ No match found.
-              </div>
+            ) : error ? (
+              <div className="text-center text-red-500 mt-3">{error}</div>
             ) : null}
           </div>
 
@@ -129,9 +144,6 @@ const Verify = () => {
               {loading ? "Checking In..." : "Check In"}
             </button>
           )}
-
-          {/* Error Message */}
-          {error && <p className="mt-3 text-red-500 text-center">{error}</p>}
         </div>
       )}
     </div>

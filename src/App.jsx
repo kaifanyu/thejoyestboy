@@ -4,7 +4,7 @@ import Phone from './Steps/Phone';
 import DriversLicence from './Steps/DriversLicence';
 import PickUpNumber from './Steps/PO';
 import Trailer from './Steps/Trailer';
-import Verify from './Verify';
+import Search from './Verify';
 import './App.css'; // Import the CSS file
 
 function FormSteps() {
@@ -65,7 +65,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<FormSteps />} />
-        <Route path="/verify" element={<Verify />} />
+        <Route path="/verify" element={<Search />} />
       </Routes>
     </Router>
   );

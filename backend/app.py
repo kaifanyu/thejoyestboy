@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from twilio.rest import Client
 from flask_cors import CORS
-import base64
 import os
 import json
 
@@ -13,7 +12,6 @@ CRED_FILE = os.path.join(os.path.dirname(__file__), 'cred.json')
 
 
 def load_credentials(filepath):
-    """Load credentials from a JSON file and return as a dictionary."""
     with open(filepath, "r") as file:
         return json.load(file)
 
@@ -84,6 +82,11 @@ account_to_checkin = {
 }
 
 
+# Load user data
+def load_user_data():
+    with open("user_data.json", "r") as file:
+        return json.load(file)
+
 # Helper function to ensure USER_DATA_FILE exists & is valid JSON
 def initialize_data_file():
     if not os.path.exists(USER_DATA_FILE):
@@ -136,6 +139,32 @@ def submit_data():
     return jsonify("200 OK")
 
 
+@app.route("/search", methods=["POST"])
+def search():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid request, no data received"}), 400
+
+    print("Received data:", data)
+
+    # Extract search parameters
+    query_type, query_value = list(data.items())[0]
+
+    # Load user data from JSON
+    user_data = load_user_data()
+
+    print("THIS: ", query_type, "ths: ", query_value)
+    # Filter users based on search query
+    results = [
+        user for user in user_data 
+        if str(user.get(query_type, "")).lower() == str(query_value).lower()
+    ]
+
+    if results:
+        return jsonify(results)
+    else:
+        return jsonify([])
 
 @app.route('/yms', methods=['POST'])
 def yms():
