@@ -12,7 +12,7 @@
   /* Verification Box */
   .verification-box {
     background-color: white;
-    padding: 30px;
+    padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -23,13 +23,14 @@
   /* Search Type Button Group */
   .button-group {
     display: flex;
+    flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
     justify-content: center;
     gap: 10px;
     margin-top: 15px;
   }
   
   .button-group button {
-    padding: 10px 15px;
+    padding: 10px 12px;
     font-size: 14px;
     font-weight: bold;
     border: 1px solid #ddd;
@@ -38,6 +39,8 @@
     color: #333;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    min-width: 120px; /* Ensure buttons have a consistent width */
+    max-width: 45%; /* Prevents overflow on very small screens */
   }
   
   .button-group button:hover {
@@ -96,6 +99,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
     border-left: 5px solid #3b82f6;
+    text-align: left;
   }
   
   /* Error Message */
@@ -137,5 +141,40 @@
     text-align: center;
     color: green;
     font-size: 24px;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 480px) {
+    .verification-box {
+      width: 90%; /* Make it take more space on small screens */
+      padding: 20px;
+    }
+  
+    .button-group {
+      flex-direction: column; /* Stack buttons vertically on mobile */
+      align-items: center;
+      gap: 8px;
+    }
+  
+    .button-group button {
+      width: 100%; /* Make buttons full-width */
+      max-width: 100%;
+    }
+  
+    .search-input {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .search-button,
+    .check-in-button {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .result-card {
+      font-size: 14px;
+      padding: 10px;
+    }
   }
   
