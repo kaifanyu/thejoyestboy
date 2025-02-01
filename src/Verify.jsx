@@ -55,7 +55,7 @@ const Verify = () => {
     const selectedUser = filteredResults[0];
 
     try {
-      await fetch("http://localhost:5000/yms", {
+      await fetch("https://api.kaifany.com/yms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(selectedUser),
