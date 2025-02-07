@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -104,14 +102,17 @@ input[type="number"] {
   margin-left: 5px;
 }
 
-/* Progress bar styling */
+
+/* Progress bar styling - Fixed at the top */
 .progress-bar-container {
-  width: 100%;
-  height: 8px;
+  position: fixed; /* Keeps it fixed at the top */
+  top: 0; /* Aligns it at the very top */
+  left: 0; /* Ensures it starts from the left */
+  width: 100%; /* Full width */
+  height: 15px; /* Keeps the same height */
   background-color: #e0e0e0;
-  border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 20px;
+  z-index: 1000; /* Ensures it's always on top of other elements */
 }
 
 .progress-bar {

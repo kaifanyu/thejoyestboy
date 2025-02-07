@@ -36,15 +36,18 @@ function Trailer({ trailerNumber, setTrailerNumber, nextStep }) {
         placeholder="1234.."
       />
 
-      <div className="button-group">
-      <button className="button next-button" onClick={handleNext}>
-        Next / Siguiente
-      </button>
+      <div className="button-group"><button 
+              className="button next-button" 
+              onClick={handleNext}
+              style={{ backgroundColor: 'green', color: 'white', padding: '10px 15px', fontSize: '1rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
+                  Next / Siguiente
+                </button>
 
-        <button className="button skip-button" onClick={handleSkip}>
-          Skip / Saltar
-        </button>
-      </div>
+              <button className="button skip-button" onClick={handleSkip}
+              style={{backgroundColor: 'red', color: 'white'}}>
+                Skip / Saltar
+              </button>
+            </div>
     </div>
   );
 }

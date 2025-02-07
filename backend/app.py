@@ -3,6 +3,7 @@ from twilio.rest import Client
 from flask_cors import CORS
 import os
 import json
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -17,6 +18,7 @@ def load_credentials(filepath):
 
 # Load credentials
 credentials = load_credentials("cred.json")
+wms_url = "http://10.10.202.29:6969/dock"
 
 # Assign values to variables
 ACCOUNT_SID = credentials.get("account_sid")
@@ -38,48 +40,6 @@ def send_sms(to_number, message):
         print(f"Message sent successfully! SID")
     except Exception as e:
         print(f"Failed to send message: {e}")
-
-account_to_checkin = {
-    "Kings Hawaiian": "Check - in Window DK165",
-    "Oversees Trading": "Check - in Window DK165",
-    "Roar Beverages (Pick - Up)": "Check - in Window DK165",
-    "Orgain": "Check - in Window DK165",
-    "Bay 2": "Check - in Window DK165",
-    "NZXT": "Check - in Window DK18 (LTL's)",
-    "Boostev": "Check - in Window DK18 (LTL's)",
-    "Elevate": "Check - in Window DK18 (LTL's)",
-    "TCL": "Check - in Window DK18 (LTL's)",
-    "TPV USA": "Check - in Window DK18 (LTL's)",
-    "Simple modern": "Check - in Window DK18 (LTL's)",
-    "Southern Wine": "Check - in Window DK18 (LTL's)",
-    "DIVINELY NECTAR INC": "Check - in Window DK18 (LTL's)",
-    "GIMME HEALTH FOODS, INC": "Check - in Window DK18 (LTL's)",
-    "KACE TEA LLC": "Check - in Window DK18 (LTL's)",
-    "Gurunanda": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Karaka": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Tytus": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Academy UF": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Roar Beverages (Delivery)": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Razor": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "DPS": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Preferred Brands": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "SG Footwear": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Ascena": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Crate & Barrel": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Flag & Anthem (DEL Only)": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "NorthStar": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    "Murrieta Rhino": "Check - in Window DK 93 (NO LTL's, Send to DK 18)",
-    
-    "Vita Coco": "Check - in Window DK 144",
-    "Come Ready": "Check - in Window DK 144",
-    "Ingredient Bothers": "Check - in Window DK 144",
-    "BUDDHIST TZU CHI FOUNDATION": "Check - in Window DK 144",
-    "MAMMA CHIA": "Check - in Window DK 144",
-    "TAWA SERVICES INC": "Check - in Window DK 144",
-    "UNICHEM ENTERPRISE": "Check - in Window DK 144",
-    "WALONG MARKET INC": "Check - in Window DK 144",
-    "Sans": "Check - in Window DK 144"
-}
 
 
 # Load user data
@@ -165,26 +125,115 @@ def search():
         return jsonify(results)
     else:
         return jsonify([])
+    
 
 @app.route('/yms', methods=['POST'])
 def yms():
     try:
         # Parse JSON data from request
         data = request.json
-    
-        phone_number = data.get('phoneNumber')
-        drivers_license = data.get('driversLicense')
-        po_number = data.get('poNumber')
-        trailerNumber = data.get('trailerNumber')
-        message = f"You have been checked in. You are live-loading from Walmart. Please go to Dock 18. The process will take approximately 2 hours." 
 
+        phone_number = data.get('phoneNumber', 'N/A')
+        drivers_license = data.get('driversLicense', 'N/A')
+        po_number = data.get('poNumber', 'N/A')
+        trailer_number = data.get('trailerNumber', 'N/A')
+
+        print(f"Received Data - Phone: {phone_number}, License: {drivers_license}, PO#: {po_number}, Trailer#: {trailer_number}")
+
+        # Fetch all dock information
+        output = wms(po_number, trailer_number)
+        
+        if not output:
+            print("Error: No data received from WMS")
+            return jsonify({"error": "Failed to fetch dock data"}), 500
+
+        # Extract dock status and load info safely
+        dock_status = output.get("dock_status", {})
+        load_info = output.get("load_info", {})
+
+        assisting_name = dock_status["assisting_personnel"]["name"]
+
+        # Print retrieved dock status and load info
+        print(f"Dock Status: {dock_status}")
+        print(f"Load Info: {load_info}")
+
+        live_load = load_info["live_load"]
+        delivery = load_info["delivery"]
+        pick_up = load_info["pick_up"]
+
+        response_data = {
+            "dock_status": dock_status,
+            "load_info": load_info,
+            "additional_info": {
+                "po_num": po_number,
+                "trailer_num": trailer_number,
+                "phone_number": phone_number,
+                "drivers_license": drivers_license,
+            }
+        }
+
+        
+
+        # Generate a message based on availability
+        available_now = dock_status.get("available_now", False)
+        dock_number = dock_status.get("dock_num", "Unknown")
+        wait_time = dock_status.get("estimated_wait_time", "Unknown")
+        duration = dock_status.get("estimated_duration", "unknown")
+
+
+        message = "You have been checked in. \n"
+
+        if live_load:
+            if available_now:
+                message += f"Please go to Dock {dock_number}. {assisting_name} will be assisting you.\nEstimated time: {wait_time} minutes. \nEstimated duration: {duration} minutes.\n"
+            else:
+                message += f"Error processing. No dock is currently available. It will be avaliable in {wait_time} minues\n"
+        
+        if delivery:
+            message += f"Please deliver to parking spot 23.\n"
+             
+        if pick_up:
+            message += f"Please pick up container: BSXH23429423. It is located in Zone 4.\n"
+
+        print(f"Generated Message: {message}")
+
+        # Optionally, send SMS notification
         send_sms(phone_number, message)
-        # Return a success response
-        return jsonify({"message": "Check-in successful!"}), 200
+
+        # Return full response data
+        return jsonify({
+            "message": message,
+            "data": response_data
+        }), 200
 
     except Exception as e:
-        print("❌ Error processing request:", str(e))
-        return jsonify({"error": "Failed to process request"}), 500
+        print(f"Exception occurred: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+def wms(po_number, trailer_number):
+    try:
+        params = {
+            "po_num": po_number,
+            "trailer_num": trailer_number
+        }
+        print(f"Fetching WMS data with params: {params}")
+
+        # Make the GET request
+        response = requests.get(wms_url, params=params)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            data = response.json()
+            print("Received WMS Data:", data)
+            return data  # Return full data instead of just dock_status
+        else:
+            print(f"Error: Received status code {response.status_code}, Response: {response.text}")
+            return None  # Return None on failure
+
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+        return None  # Return None if an exception occurs
 
 if __name__ == '__main__':
     # Listen on all interfaces so this is accessible on your network

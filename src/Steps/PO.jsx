@@ -18,7 +18,6 @@ function PickUpNumber({ poNumber, setPONumber, nextStep }) {
   return (
     <div>
       <h2 className="heading">输入提货号码 / 装载号码</h2>
-      {/* <h2 className="heading">पिक-अप नंबर दर्ज करें</h2> */}
       <h2 className="heading">Ingrese el número de recogida / número de carga</h2>
       <h2 className="heading">↓ Enter Pick Up Number / Load Number ↓</h2>  
 
@@ -27,19 +26,23 @@ function PickUpNumber({ poNumber, setPONumber, nextStep }) {
         type="text"
         value={poNumber}
         onChange={(e) => setPONumber(e.target.value)}
-        placeholder="Pick up number: 1234..."
+        placeholder="Pick up number: 1223..."
       />
+      
+      <div className="button-group"><button 
+        className="button next-button" 
+        onClick={handleNext}
+        style={{ backgroundColor: 'green', color: 'white', padding: '10px 15px', fontSize: '1rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
+            Next / Siguiente
+          </button>
 
-<div className="button-group">
-      <button className="button next-button" onClick={handleNext}>
-        Next / Siguiente
-      </button>
-        <button className="button skip-button" onClick={handleSkip}>
+        <button className="button skip-button" onClick={handleSkip}
+        style={{ backgroundColor: 'red', color: 'white', padding: '10px 15px', fontSize: '1rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
           Skip / Saltar
         </button>
-
       </div>
-    </div>
+
+        </div>
   );
 }
 

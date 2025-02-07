@@ -22,11 +22,15 @@ function DriversLicense({ driversLicense, setDriversLicense, nextStep }) {
         onChange={(e) => setDriversLicense(e.target.value)}
         placeholder="Enter Driver's License"
       />
-      <div className="button-group">
-        <button className="button next-button" onClick={handleNext}>
-          Next / Siguiente
-        </button>
-        <button className="button skip-button" onClick={handleSkip}>
+      <div className="button-group"><button 
+        className="button next-button" 
+        onClick={handleNext}
+        style={{ backgroundColor: 'green', color: 'white', padding: '10px 15px', fontSize: '1rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
+            Next / Siguiente
+          </button>
+
+        <button className="button skip-button" onClick={handleSkip}
+        style={{ backgroundColor: 'red', color: 'white', padding: '10px 15px', fontSize: '1rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
           Skip / Saltar
         </button>
       </div>
