@@ -190,7 +190,7 @@ def yms():
                 message += f"Error processing. No dock is currently available. It will be avaliable in {wait_time} minues\n"
         
         if delivery:
-            message += f"Please deliver to parking spot 23.\n"
+            message += f"Please deliver to parking spot 23.\nPut Proof of Delivery(POD) to Dock 18."
              
         if pick_up:
             message += f"Please pick up container: BSXH23429423. It is located in Zone 4.\n"
