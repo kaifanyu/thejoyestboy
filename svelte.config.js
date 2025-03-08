@@ -6,7 +6,10 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter(), // No need for 'routes' or 'outDir'
+		adapter: adapter(),
+		prerender: {
+			entries: ['*']
+		}
 	}
 };
 
