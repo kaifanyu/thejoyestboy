@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import {apiBaseUrl} from '$lib/stores/config'
   import "../../app.css"
+
   // User profile state
   let username = "";
   let userImage = "";
@@ -32,7 +33,7 @@
       } else {
         // If not logged in, redirect to login page
         // goto('/login');
-        username = 'para';
+        username = 'notloggedin';
         userImage = 'https://ia800305.us.archive.org/31/items/discordprofilepictures/discordgrey.png';
       }
     } catch (error) {
@@ -49,7 +50,7 @@
         <!-- Logo and Main Navigation -->
         <div class="flex items-center space-x-8">
           <!-- Logo -->
-          <a href="/" class="text-red-600 font-bold text-2xl">MediaHub</a>
+          <a href="/" class="text-red-600 font-bold text-2xl">Team Edward</a>
           
           <!-- Main Navigation Links -->
           <nav class="hidden md:flex space-x-6">

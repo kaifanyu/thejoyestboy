@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import "../app.css"
   
   let isLogin = true; // Toggle between login and signup
   let message = "";
