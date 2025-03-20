@@ -50,19 +50,17 @@
         <!-- Logo and Main Navigation -->
         <div class="flex items-center space-x-8">
           <!-- Logo -->
-          <a href="/" class="text-red-600 font-bold text-2xl">Team Edward</a>
+          <a href="/home" class="text-red-600 font-bold text-2xl">Team Edward</a>
           
           <!-- Main Navigation Links -->
           <nav class="hidden md:flex space-x-6">
-            <a href="/home" class="hover:text-gray-300 transition duration-200">Home</a>
-            <a href="/manga" class="hover:text-gray-300 transition duration-200">Manga</a>
-            <a href="/audiobooks" class="hover:text-gray-300 transition duration-200">Audiobooks</a>
             <a href="/anime" class="hover:text-gray-300 transition duration-200">Anime</a>
+            <a href="/audiobooks" class="hover:text-gray-300 transition duration-200">Audiobooks</a>
+            <a href="/manga" class="hover:text-gray-300 transition duration-200">Manga</a>
             <a href="/movies" class="hover:text-gray-300 transition duration-200">Movies</a>
           </nav>
         </div>
         
-        <!-- Search and User Profile -->
         <div class="flex items-center space-x-4">
           <!-- Search Bar -->
           <form on:submit|preventDefault={handleSearch} class="relative">
@@ -120,13 +118,5 @@
   <main class="pt-16">
     <slot></slot>
   </main>
-  
-  <!-- Footer -->
-  <footer class="bg-black bg-opacity-80 py-6 mt-12">
-    <div class="container mx-auto px-4">
-      <div class="text-center text-gray-400 text-sm">
-        <p>&copy; {new Date().getFullYear()} MediaHub. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+
 </div>

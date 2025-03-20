@@ -582,7 +582,7 @@
         <div class="md:flex">
           <!-- Cover art -->
           <div class="md:w-1/3 mb-8 md:mb-0 md:pr-8">
-            <div class="rounded-lg overflow-hidden shadow-lg bg-gray-800 aspect-square">
+            <div class="rounded-lg overflow-hidden shadow-lg bg-gray-800 aspect-[0/3]">
               <img 
                 src={audiobook.cover_image || '/placeholder-cover.jpg'} 
                 alt={audiobook.title} 
@@ -702,7 +702,6 @@
                       </svg>
                     </button>
                   </div>
-                  
                   <div class="flex items-center space-x-4">
                     <!-- Volume control -->
                     <div class="relative">
