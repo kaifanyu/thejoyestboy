@@ -172,14 +172,13 @@
         <a href="/audiobooks"
             class="text-xl font-bold mb-4 inline-block transition-colors duration-200 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300">
             Audiobooks</a>
-          <div id="audiobooks-carousel" class="scroll-container flex space-x-4 pb-4">
+          <div id="audiobooks-carousel" class="scroll-container flex space-x-4 pb-4 pt-4">
             {#each audiobooks as item}
                 <a href={`/audiobooks/${item.id}`} class="scroll-item w-32 sm:w-40 md:w-48 transition transform hover:scale-105">
                     <div class="relative aspect-[2/3] rounded overflow-hidden">
                         <img src={item.cover_image || '/placeholder-cover.jpg'} alt={item.title}
                              class="w-full h-full object-cover" loading="lazy" draggable="false"/>
                     </div>
-                    <h3 class="mt-2 text-sm truncate">{item.title}</h3>
                 </a>
             {/each}
         </div>
@@ -192,7 +191,7 @@
           <div id="manga-carousel" class="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide  scroll-padding-left: 20px;">
               {#each manga as item}
                   <a href={`/manga/${item.id}`} class="snap-start flex-none w-32 sm:w-40 md:w-48 transition transform hover:scale-105">
-                      <div class="relative aspect-[2/3] rounded overflow-hidden">
+                      <div class="relative aspect-[0/3] rounded overflow-hidden">
                           <img src={item.cover_image || '/placeholder-cover.jpg'} alt={item.title} class="w-full h-full object-cover" loading="lazy" />
                       </div>
                       <h3 class="mt-2 text-sm truncate">{item.title}</h3>

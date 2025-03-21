@@ -42,15 +42,15 @@
   });
 </script>
 
-<div class="min-h-screen bg-gray-900 text-white">
+<div class="min-h-screen" style="background-color: #C6BEB0; color: #0b261a">
   <!-- Navigation Bar -->
-  <header class="bg-black bg-opacity-90 fixed w-full z-50">
+  <header class="bg-opacity-90 fixed w-full z-50" style="background-color: #366251">
     <div class="container mx-auto px-4 py-3">
       <div class="flex items-center justify-between">
         <!-- Logo and Main Navigation -->
         <div class="flex items-center space-x-8">
           <!-- Logo -->
-          <a href="/home" class="text-red-600 font-bold text-2xl">Team Edward</a>
+          <a href="/home" class="font-bold text-2xl" style="color: #0b261a">Shiina</a>
           
           <!-- Main Navigation Links -->
           <nav class="hidden md:flex space-x-6">
@@ -68,7 +68,7 @@
               type="text" 
               bind:value={searchQuery}
               placeholder="Search titles..." 
-              class="bg-gray-800 rounded-full py-1 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-red-600 w-40 md:w-64"
+              class="bg-white rounded-full py-1 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-red-600 w-40 md:w-64"
             />
             <button aria-label='search' type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

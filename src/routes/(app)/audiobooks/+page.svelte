@@ -31,8 +31,6 @@
 </script>
 
 <div class="library-container">
-    <h1 class="library-title">Audiobooks Library</h1>
-
     {#if isLoading}
         <div class="status-message">Loading audiobooks...</div>
     {:else if error}
@@ -44,12 +42,6 @@
                     <a href={`/audiobooks/${item.id}`} class="book-card">
                         <div class="book-cover">
                             <img src={item.cover_image || '/placeholder-cover.jpg'} alt={item.title} loading="lazy" />
-                        </div>
-                        <div class="book-details">
-                            <h3 class="book-title">{item.title}</h3>
-                            {#if item.author}
-                                <p class="book-author">{item.author}</p>
-                            {/if}
                         </div>
                     </a>
                 {/each}
@@ -67,14 +59,6 @@
         margin: 0 auto;
         padding: 40px 20px;
         text-align: center;
-    }
-
-    /* Title Styling */
-    .library-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
     }
 
     /* Status Messages */
@@ -134,28 +118,6 @@
         transform: scale(1.05);
     }
 
-    /* Book Details */
-    .book-details {
-        padding: 12px;
-        text-align: center;
-    }
-
-    .book-title {
-        font-size: 1rem;
-        font-weight: bold;
-        color: #222;
-        transition: color 0.2s ease-in-out;
-    }
-
-    .book-card:hover .book-title {
-        color: #0077cc;
-    }
-
-    .book-author {
-        font-size: 0.9rem;
-        color: #666;
-        margin-top: 4px;
-    }
 
     /* Scrollbar */
     ::-webkit-scrollbar {
